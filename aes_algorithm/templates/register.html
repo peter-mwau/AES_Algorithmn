@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <style>
+    .password-toggle {
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    function togglePasswordVisibility(inputId, toggleId) {
+      var passwordInput = document.getElementById(inputId);
+      var passwordToggle = document.getElementById(toggleId);
+      
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        passwordToggle.classList.remove("fa-eye");
+        passwordToggle.classList.add("fa-eye-slash");
+      } else {
+        passwordInput.type = "password";
+        passwordToggle.classList.remove("fa-eye-slash");
+        passwordToggle.classList.add("fa-eye");
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-200 h-[100vh] p-2">
+  <div class="bg-transparent shadow-lg mx-auto items-center justify-center p-2 w-[40%] h-[600px] mt-10">
+    <h2 class="mx-auto items-center justify-center flex text-2xl font-serif font-bold uppercase m-2">Register</h2>
+    <form action="" method="post" class="m-2 p-2">
+      {% csrf_token %}
+      <div class="m-8">
+        <label for="username" class="sr-only">Username</label>
+        <input type="text" name="username" id="username" placeholder="Username" class="bg-transparent shadow-lg w-full p-4 rounded-lg">
+      </div>
+      <div class="m-8">
+        <label for="email" class="sr-only">Email</label>
+        <input type="text" name="email" id="email" placeholder="e.g xyz@gmail.com" class="bg-transparent shadow-lg w-full p-4 rounded-lg">
+      </div>
+      <div class="m-8">
+        <label for="password" class="sr-only">Password</label>
+        <div class="relative">
+          <input type="password" name="password" id="password" placeholder="Password" class="bg-transparent shadow-lg w-full p-4 rounded-lg">
+          <i id="password-toggle" class="fas fa-eye password-toggle text-gray-400" onclick="togglePasswordVisibility('password', 'password-toggle')"></i>
+        </div>
+      </div>
+      <div class="m-8">
+        <label for="confirm-password" class="sr-only">Confirm Password</label>
+        <div class="relative">
+          <input type="password" name="confirm-password" id="confirm-password" placeholder="Confirm Password" class="bg-transparent shadow-lg w-full p-4 rounded-lg">
+          <i id="confirm-password-toggle" class="fas fa-eye password-toggle text-gray-400" onclick="togglePasswordVisibility('confirm-password', 'confirm-password-toggle')"></i>
+        </div>
+      </div>
+      <div class="items-start justify-center flex mx-auto">
+        <button type="submit" name="register" class="bg-gray-300 text-black py-3 rounded font-medium mt-4 hover:bg-gray-400 hover:shadow-lg w-[30%]">Register</button>
+        <a href="/" class="p-2 hover:underline hover:text-blue-500 my-auto text-blue-500 p-3">Login</a>
+        {{ result}}
+      </div>
+    </form>
+  </div>
+</body>
+<div class="footer bg-gray-300 p-2 h-30px mt-[93vh]">
+    <p>&copy; 2023 Peter Mwau Kyale - All Right Reserved</p>
+</div>
+</html>

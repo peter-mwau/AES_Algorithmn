@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <style>
+    .password-toggle {
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    function togglePasswordVisibility() {
+      var passwordInput = document.getElementById("password");
+      var passwordToggle = document.getElementById("password-toggle");
+      
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        passwordToggle.classList.remove("fa-eye");
+        passwordToggle.classList.add("fa-eye-slash");
+      } else {
+        passwordInput.type = "password";
+        passwordToggle.classList.remove("fa-eye-slash");
+        passwordToggle.classList.add("fa-eye");
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-200 h-[100vh] p-2">
+  <div class="bg-transparent shadow-lg mx-auto items-center justify-center p-2 w-[40%] h-[600px] mt-10">
+    <h2 class="mx-auto items-center justify-center flex text-2xl font-serif font-bold uppercase m-2">Login</h2>
+    <form action="" method="post" class="m-2 p-2">
+      {% csrf_token %}
+      <div class="m-8">
+        <label for="username" class="sr-only">Username</label>
+        <input type="text" name="username" id="username" placeholder="Username" class="bg-transparent shadow-lg w-full p-4 rounded-lg">
+      </div>
+      <div class="m-8">
+        <label for="password" class="sr-only">Password</label>
+        <div class="relative">
+          <input type="password" name="password" id="password" placeholder="Password" class="bg-transparent shadow-lg w-full p-4 rounded-lg">
+          <i id="password-toggle" class="fas fa-eye password-toggle text-gray-400" onclick="togglePasswordVisibility()"></i>
+        </div>
+      </div>
+      <div>
+        <button type="submit" name="login" class="bg-gray-300 text-black mx-auto py-3 rounded font-medium items-center justify-center flex mt-4 hover:bg-gray-400 hover:shadow-lg w-[30%]">Login</button>
+      </div>
+    </form>
+  </div>
+</body>
+<div class="footer bg-gray-300 p-2 h-30px mt-[93vh]">
+    <p>&copy; 2023 Peter Mwau Kyale - All Right Reserved</p>
+</div>
+</html>
