@@ -79,10 +79,14 @@ def index(request):
 
         except UserData.DoesNotExist:
             # User data not found
-            messages.error(request, 'Invalid username or password.')
+            messages.error(request, 'User does not exist!!.')
             return render(request, 'index.html')
+        
+    context = {
+        'error': messages.error,
+    }
 
-    return render(request, 'index.html')
+    return render(request, 'index.html', context)
 
 
 def logout_view(request):
