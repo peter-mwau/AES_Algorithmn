@@ -10,6 +10,22 @@ def register(request):
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
+        confirmpass = request.POST.get('confirmpassword')
+
+        # Check if the passwords match
+        if password != confirmpass:
+            messages.error(request, 'Passwords do not match.')
+            return render(request, 'register.html')
+
+        # Check if the username is already taken
+        if UserData.objects.filter(username=username).exists():
+            messages.error(request, 'Username already taken.')
+            return render(request, 'register.html')
+
+        # Check if the email is already taken
+        if UserData.objects.filter(email=email).exists():
+            messages.error(request, 'Email already taken.')
+            return render(request, 'register.html')
 
         # Generate a new salt
         salt = bcrypt.gensalt()
@@ -28,10 +44,11 @@ def register(request):
         context = {
             'email': email,
             'username': username,
-            'password': hashed_str
+            'password': hashed_str, 
+            'error': messages.error,
         }
 
-        return render(request, 'register.html', context)
+        return render(request, 'login.html', context)
 
     return render(request, 'register.html')
 
