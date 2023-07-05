@@ -1,7 +1,8 @@
 import bcrypt
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import UserData
+from django.contrib.auth import logout
 
 # ...
 
@@ -82,3 +83,8 @@ def index(request):
             return render(request, 'index.html')
 
     return render(request, 'index.html')
+
+
+def logout_view(request):
+    logout(request)  # Logout the user
+    return redirect('index')  # Redirect to the index page or any other page you prefer
